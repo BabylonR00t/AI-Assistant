@@ -11,15 +11,15 @@ from groq import Groq
 from openai import OpenAI
 import google.generativeai as genai
 
-# Configuration and API Keys
+# set a wake up word
 wake_word = 'AI-listen'
 
-# Replace with your actual API keys
+# API keys
 groq_client = Groq(api_key="<YOUR_GROQ_API_KEY>")
 genai.configure(api_key='<YOUR_GOOGLE_GENAI_API_KEY>')
 openai_client = OpenAI(api_key='<YOUR_OPENAI_API_KEY>')
 
-# System Message for the Assistant
+# system Message for the Assistant
  system_msg = (
         'You are an AI function calling model. You will determine whether taking a screenshot, '
         'capturing the webcam, or calling no functions is best for a voice assistant to respond '
@@ -29,7 +29,7 @@ openai_client = OpenAI(api_key='<YOUR_OPENAI_API_KEY>')
         'Format the function call name exactly as I listed.'
     )
 
-# Conversation History
+
 convo = [{'role': 'system', 'content': system_message}]
 
 # Generation Configuration
@@ -48,7 +48,7 @@ safety_settings = [
     {'category': 'HARM_CATEGORY_DANGEROUS_CONTENT', 'threshold': 'BLOCK_NONE'},
 ]
 
-# Initialize Generative Model
+
 model = genai.GenerativeModel(
     'gemini-1.5-flash-latest',
     generation_config=generation_config,
@@ -66,7 +66,7 @@ whisper_model = WhisperModel(
     num_workers=num_cores // 2
 )
 
-# Speech Recognition
+
 r = sr.Recognizer()
 source = sr.Microphone()
 
@@ -205,6 +205,5 @@ def start_listening():
     while True:
         time.sleep(0.5)
 
-# Main Execution
 if __name__ == "__main__":
     start_listening()
